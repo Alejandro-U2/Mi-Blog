@@ -15,7 +15,6 @@ const almacenamiento = multer.diskStorage({
 
 const subidas = multer({storage: almacenamiento});
 
-//Crear las rutas necesarias para acceder desde localhost/..ruta
 
 
 //rutas de prueba
