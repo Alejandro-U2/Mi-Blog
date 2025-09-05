@@ -28,12 +28,12 @@ app.get("/probando", (req, res) => {
 
     return res.status(200).json([{
         curso: "Master en React",
-        autor: "Carlos Arias",
+        autor: "Jeffry Urbina",
         url: "www.stscloud.com.gt"
     },
     {
         curso: "Master en React",
-        autor: "Carlos Arias",
+        autor: "Jeffry Urbina",
         url: "www.stscloud.com.gt"
     },
     ]);

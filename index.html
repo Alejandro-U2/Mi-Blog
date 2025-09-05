@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Blog - Gestión de Artículos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="nav-logo">Mi Blog - Admin</h1>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#inicio" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#crear-articulo" class="nav-link">Crear Artículo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#articulos" class="nav-link">Gestionar Artículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Inicio -->
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h2>Panel de Administración del Blog</h2>
+                <p>Gestiona tus artículos, crea contenido nuevo y administra tu blog.</p>
+                <a href="#crear-articulo" class="btn">Crear Nuevo Artículo</a>
+            </div>
+        </section>
+
+        <!-- Sección Crear Artículo -->
+        <section id="crear-articulo" class="create-article">
+            <div class="container">
+                <h2>Crear Nuevo Artículo</h2>
+                <form id="form-crear-articulo" class="article-form">
+                    <div class="form-group">
+                        <label for="titulo">Título del Artículo</label>
+                        <input type="text" id="titulo" name="titulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contenido">Contenido</label>
+                        <textarea id="contenido" name="contenido" rows="10" required placeholder="Escribe el contenido de tu artículo aquí..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">Imagen del Artículo (opcional)</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn">Crear Artículo</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección de Artículos -->
+        <section id="articulos" class="articles-management">
+            <div class="container">
+                <h2>Gestionar Artículos</h2>
+                <div class="articles-controls">
+                    <button id="btn-cargar-articulos" class="btn">Cargar Artículos</button>
+                    <div class="search-box">
+                        <input type="text" id="buscar-articulo" placeholder="Buscar artículo por ID...">
+                        <button id="btn-buscar" class="btn">Buscar</button>
+                    </div>
+                </div>
+                <div id="articulos-lista" class="articles-grid">
+                    <!-- Los artículos se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para Editar Artículo -->
+        <div id="modal-editar" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Editar Artículo</h3>
+                <form id="form-editar-articulo" class="article-form">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="form-group">
+                        <label for="edit-titulo">Título del Artículo</label>
+                        <input type="text" id="edit-titulo" name="titulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-contenido">Contenido</label>
+                        <textarea id="edit-contenido" name="contenido" rows="10" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-imagen">Nueva Imagen (opcional)</label>
+                        <input type="file" id="edit-imagen" name="imagen" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn">Actualizar Artículo</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sección Sobre Mí -->
+        <section id="sobre-mi" class="about">
+            <div class="container">
+                <h2>Sobre Este Sistema</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Este es un sistema de gestión de blog conectado a una API REST desarrollada con Node.js, Express y MongoDB.</p>
+                        <p>Características del sistema:</p>
+                        <ul>
+                            <li>Crear, editar y eliminar artículos</li>
+                            <li>Subir imágenes para los artículos</li>
+                            <li>Búsqueda por ID de artículo</li>
+                            <li>Interfaz responsiva y moderna</li>
+                            <li>Conexión en tiempo real con la base de datos</li>
+                        </ul>
+                    </div>
+                    <div class="api-status">
+                        <h3>Estado de la API</h3>
+                        <div id="api-status" class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span id="status-text">Verificando...</span>
+                        </div>
+                        <p><strong>URL de la API:</strong> http://localhost:3900/api</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mi Blog - Sistema de Gestión. Todos los derechos reservados.</p>
+            <p>API REST con Node.js + Express + MongoDB</p>
+        </div>
+    </footer>
+
+    <script src="api-client.js"></script>
+</body>
+</html>

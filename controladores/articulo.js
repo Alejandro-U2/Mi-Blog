@@ -181,54 +181,44 @@ const editar = async (req, res) => {
 
 
 const subir = async (req, res) => {
-    try {
-        // Configurar multer
-
-        // Recoger el fichero de imagen subido
-        if (!req.file && !req.files) {
-            return res.status(404).json({
-                status: "error",
-                mensaje: "Petición invalida"
-            });
-        }
-
-        // Nombre del archivo
-        let archivo = req.file.originalname;
-
-        // Extensión del archivo
-        let archivo_split = archivo.split(".");
-        let archivo_extension = archivo_split[1];
-
-        // Comprobar extensión correcta
-        if (archivo_extension !== "png" && archivo_extension !== "jpg" &&
-            archivo_extension !== "jpeg" && archivo_extension !== "gif") {
-            // Borrar archivo y dar respuesta
-            await new Promise((resolve, reject) => {
-                fs.unlink(req.file.path, (error) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        resolve();
-                    }
-                });
-            });
-            return res.status(400).json({
-                status: "error",
-                mensaje: "Imagen inválida"
-            });
-        } else {
-            return res.status(200).json({
-                status: "success",
-                archivo_split,
-                files: req.file
-            });
-        }
-    } catch (error) {
-        return res.status(500).json({
-            status: "error",
-            mensaje: "Error en el servidor"
-        });
+  try {
+    if (!req.file) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "Petición invalida"
+      });
     }
+
+    // Nombre del archivo subido
+    let nombreArchivo = req.file.filename; // <- este es el que multer genera
+
+    // Actualizar el artículo con el nombre de la imagen
+    let articuloId = req.params.id;
+
+    const articuloActualizado = await Articulo.findOneAndUpdate(
+      { _id: articuloId },
+      { imagen: nombreArchivo }, // aquí guardamos en el campo "imagen"
+      { new: true }
+    );
+
+    if (!articuloActualizado) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "No se encontró el artículo"
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      articulo: articuloActualizado,
+      fichero: req.file
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "error",
+      mensaje: "Error en el servidor"
+    });
+  }
 };
 
 
